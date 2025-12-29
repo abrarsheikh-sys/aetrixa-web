@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 249, 249, 249; /* #F9F9F9 Ivory */
+  --background-start-rgb: 17, 17, 17; /* #111111 Charcoal */
+  --background-end-rgb: 26, 26, 26; /* #1A1A1A Slate */
+}
+
+@layer base {
+  body {
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    ) rgb(var(--background-start-rgb));
+    /* Smooth font rendering for luxury feel */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Luxury selection color */
+  ::selection {
+    background: #C7A17A; /* Gold */
+    color: #111111;
+  }
+}
+
+@layer utilities {
+  /* The "Quiet Luxury" Glass Effect */
+  .glass-panel {
+    @apply bg-aetrixa-charcoal/80 backdrop-blur-md border border-white/5 shadow-2xl;
+  }
+  
+  .glass-nav {
+    @apply bg-aetrixa-charcoal/70 backdrop-blur-lg border-b border-white/5;
+  }
+
+  /* Cinematic Text styling */
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-aetrixa-gold via-aetrixa-gold-light to-aetrixa-gold;
+  }
+  
+  /* Remove scrollbar for clean aesthetics but keep functionality */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
