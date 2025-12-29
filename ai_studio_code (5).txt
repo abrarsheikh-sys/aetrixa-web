@@ -1,0 +1,48 @@
+"use client";
+
+import React from "react";
+import { motion } from "framer-motion";
+import SearchWidget from "./SearchWidget";
+
+export default function Hero() {
+  return (
+    <section className="relative h-screen w-full overflow-hidden flex flex-col justify-end pb-20 md:pb-32">
+      
+      {/* 1. Cinematic Background */}
+      <div className="absolute inset-0 z-0">
+        {/* Placeholder for Video/Image */}
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=3270&auto=format&fit=crop')] bg-cover bg-center" />
+        
+        {/* Gradient Overlay for Readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-aetrixa-charcoal/30 via-transparent to-aetrixa-charcoal/90" />
+        <div className="absolute inset-0 bg-black/20" />
+      </div>
+
+      {/* 2. Hero Content */}
+      <div className="relative z-10 w-full px-6 flex flex-col items-center">
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center mb-12"
+        >
+          <p className="text-aetrixa-gold font-sans text-xs md:text-sm uppercase tracking-[0.3em] mb-4">
+            Curated for the Elite
+          </p>
+          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-aetrixa-ivory mb-6 leading-tight">
+            Experience the <br />
+            <span className="italic">Unimaginable</span>
+          </h1>
+          <p className="max-w-xl mx-auto text-aetrixa-ivory/80 font-sans text-sm md:text-base leading-relaxed font-light">
+            Access the world's most exclusive destinations, private islands, and luxury retreats with AETRIXA.
+          </p>
+        </motion.div>
+
+        {/* 3. Search Component */}
+        <SearchWidget />
+        
+      </div>
+    </section>
+  );
+}

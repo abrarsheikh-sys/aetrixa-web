@@ -1,0 +1,38 @@
+import type { Metadata } from "next";
+import { Playfair_Display, Inter } from "next/font/google";
+import "./globals.css";
+
+// Elegant Serif for Headings
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+});
+
+// Clean Sans-Serif for Body
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  title: "AETRIXA | Exclusive Travel & Lifestyle",
+  description: "Curated luxury experiences and elite destinations.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" className="scroll-smooth">
+      <body
+        className={`${playfair.variable} ${inter.variable} bg-aetrixa-charcoal text-aetrixa-ivory antialiased selection:bg-aetrixa-gold selection:text-aetrixa-charcoal`}
+      >
+        {children}
+      </body>
+    </html>
+  );
+}

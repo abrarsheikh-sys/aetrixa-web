@@ -1,0 +1,53 @@
+import React from "react";
+import Link from "next/link";
+import { LayoutDashboard, Link as LinkIcon, Settings, LogOut } from "lucide-react";
+
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="min-h-screen bg-aetrixa-charcoal flex">
+      {/* Sidebar */}
+      <aside className="w-64 border-r border-white/5 bg-aetrixa-charcoal/95 fixed h-full z-20 hidden md:flex flex-col">
+        <div className="p-8 border-b border-white/5">
+          <h1 className="font-serif text-xl text-aetrixa-gold tracking-widest">AETRIXA</h1>
+          <p className="text-[10px] text-aetrixa-ivory/40 uppercase tracking-widest mt-1">Admin Console</p>
+        </div>
+        
+        <nav className="flex-1 p-6 space-y-2">
+          <AdminNavItem href="/admin" icon={<LayoutDashboard size={18} />} label="Overview" active />
+          <AdminNavItem href="/admin/links" icon={<LinkIcon size={18} />} label="Affiliate Links" />
+          <AdminNavItem href="/admin/settings" icon={<Settings size={18} />} label="Settings" />
+        </nav>
+
+        <div className="p-6 border-t border-white/5">
+          <button className="flex items-center gap-3 text-aetrixa-ivory/60 hover:text-red-400 transition-colors text-sm">
+            <LogOut size={18} />
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 md:ml-64 p-8 bg-[#0a0a0a]">
+        <div className="max-w-6xl mx-auto">
+          {children}
+        </div>
+      </main>
+    </div>
+  );
+}
+
+function AdminNavItem({ href, icon, label, active = false }: { href: string; icon: any; label: string; active?: boolean }) {
+  return (
+    <Link 
+      href={href} 
+      className={`flex items-center gap-3 px-4 py-3 rounded-md transition-all duration-300 ${
+        active 
+          ? "bg-aetrixa-gold/10 text-aetrixa-gold border border-aetrixa-gold/20" 
+          : "text-aetrixa-ivory/60 hover:bg-white/5 hover:text-aetrixa-ivory"
+      }`}
+    >
+      {icon}
+      <span className="text-sm font-sans">{label}</span>
+    </Link>
+  );
+}

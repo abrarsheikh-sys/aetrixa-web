@@ -1,0 +1,19 @@
+// This goes in your root prisma folder
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model AffiliateLink {
+  id          String   @id @default(uuid())
+  name        String
+  url         String
+  clicks      Int      @default(0)
+  category    String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}

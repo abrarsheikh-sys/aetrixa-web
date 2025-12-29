@@ -1,0 +1,97 @@
+"use client";
+
+import React, { useRef } from "react";
+import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
+
+const destinations = [
+  {
+    name: "Santorini, Greece",
+    description: "Cliffside suites overlooking the caldera.",
+    image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?q=80&w=2938&auto=format&fit=crop",
+    colSpan: "md:col-span-2",
+  },
+  {
+    name: "Kyoto, Japan",
+    description: "Private ryokans in ancient districts.",
+    image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=3270&auto=format&fit=crop",
+    colSpan: "md:col-span-1",
+  },
+  {
+    name: "Amalfi Coast, Italy",
+    description: "Yacht excursions along the coastline.",
+    image: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?q=80&w=3270&auto=format&fit=crop",
+    colSpan: "md:col-span-1",
+  },
+  {
+    name: "Aspen, USA",
+    description: "Elite ski-in/ski-out chalets.",
+    image: "https://images.unsplash.com/photo-1516016836368-2396fb77955c?q=80&w=3270&auto=format&fit=crop",
+    colSpan: "md:col-span-2",
+  },
+];
+
+export default function FeaturedDestinations() {
+  return (
+    <section className="py-24 bg-aetrixa-charcoal px-6">
+      <div className="max-w-7xl mx-auto mb-16 text-center">
+        <h2 className="font-serif text-4xl md:text-5xl text-aetrixa-ivory mb-4">
+          Curated Destinations
+        </h2>
+        <div className="w-24 h-[1px] bg-aetrixa-gold mx-auto" />
+      </div>
+
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+        {destinations.map((dest, i) => (
+          <DestinationCard key={i} dest={dest} index={i} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function DestinationCard({ dest, index }: { dest: any; index: number }) {
+  const ref = useRef(null);
+  
+  // Create a subtle parallax effect for the text
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ delay: index * 0.2 }}
+      className={`relative h-[500px] group overflow-hidden cursor-pointer ${dest.colSpan}`}
+    >
+      <Image
+        src={dest.image}
+        alt={dest.name}
+        fill
+        className="object-cover transition-transform duration-1000 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
+      
+      {/* Text Overlay with Parallax */}
+      <motion.div 
+        style={{ y }} 
+        className="absolute bottom-8 left-8 z-10"
+      >
+        <p className="text-aetrixa-gold text-xs uppercase tracking-widest mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
+          Explore
+        </p>
+        <h3 className="font-serif text-3xl text-aetrixa-ivory mb-2">
+          {dest.name}
+        </h3>
+        <p className="font-sans text-sm text-aetrixa-ivory/80 max-w-xs font-light">
+          {dest.description}
+        </p>
+      </motion.div>
+    </motion.div>
+  );
+}

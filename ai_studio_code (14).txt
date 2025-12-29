@@ -1,0 +1,17 @@
+# AETRIXA | Luxury Travel & Affiliate Platform
+
+A high-performance Next.js 14 application styled with Tailwind CSS and animated with Framer Motion. Designed for high-conversion luxury affiliate marketing.
+
+## 🛠 Tech Stack
+
+- **Framework:** Next.js 14 (App Router)
+- **Styling:** Tailwind CSS + clsx
+- **Animation:** Framer Motion
+- **Database:** SQLite (Dev) / PostgreSQL (Prod) via Prisma ORM
+- **Icons:** Lucide React
+
+## 🚀 Getting Started
+
+1. **Install Dependencies**
+   ```bash
+   npm install
