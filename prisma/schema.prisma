@@ -1,0 +1,93 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // Switch to "mysql" or "sqlite" if preferred
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+  PARTNER
+}
+
+enum Category {
+  AVIATION
+  YACHTING
+  REAL_ESTATE
+  FASHION
+  TRAVEL
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  bookings  Booking[]
+}
+
+// High-Ticket Travel Packages
+model Destination {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String   @db.Text
+  country     String
+  priceStart  Decimal  @db.Decimal(10, 2)
+  images      String[] // Array of URLs
+  isFeatured  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  bookings    Booking[]
+}
+
+// Luxury Goods / Affiliate Deals
+model Deal {
+  id            String         @id @default(cuid())
+  title         String
+  description   String         @db.Text
+  category      Category
+  price         Decimal        @db.Decimal(10, 2)
+  imageUrl      String
+  affiliateLink AffiliateLink?
+  createdAt     DateTime       @default(now())
+}
+
+// Centralized Link Cloaking System
+model AffiliateLink {
+  id          String       @id @default(cuid())
+  slug        String       @unique // The cloak (e.g., aetrixa.com/go/private-jet)
+  targetUrl   String       // The real affiliate URL
+  dealId      String?      @unique
+  deal        Deal?        @relation(fields: [dealId], references: [id])
+  clicks      ClickEvent[]
+  totalClicks Int          @default(0)
+  createdAt   DateTime     @default(now())
+}
+
+// Granular Analytics for Admin Dashboard
+model ClickEvent {
+  id              String        @id @default(cuid())
+  affiliateLinkId String
+  affiliateLink   AffiliateLink @relation(fields: [affiliateLinkId], references: [id])
+  ipAddress       String?       // Hashed for privacy
+  userAgent       String?
+  country         String?
+  clickedAt       DateTime      @default(now())
+}
+
+model Booking {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id])
+  destinationId String
+  destination   Destination @relation(fields: [destinationId], references: [id])
+  status        String      @default("PENDING") // PENDING, CONFIRMED, CONCIERGE_REVIEW
+  date          DateTime
+}
