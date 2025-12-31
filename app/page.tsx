@@ -38,7 +38,6 @@ export default function Home() {
           ))}
         </div>
 
-        {/* --- BOOKING FORM --- */}
         <div className="max-w-3xl mx-auto bg-white p-10 rounded-3xl shadow-2xl border border-gray-100">
           <h2 className="text-3xl font-bold text-center uppercase tracking-widest mb-10">Reserve Your Experience</h2>
           <form className="space-y-6">
