@@ -42,15 +42,15 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-center uppercase tracking-widest mb-10">Reserve Your Experience</h2>
           <form className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <input type="text" placeholder="Full Name" className="w-full p-4 bg-gray-50 border rounded-xl" required />
-              <input type="email" placeholder="Email Address" className="w-full p-4 bg-gray-50 border rounded-xl" required />
+              <input type="text" placeholder="Full Name" className="w-full p-4 bg-gray-50 border rounded-xl text-black" required />
+              <input type="email" placeholder="Email Address" className="w-full p-4 bg-gray-50 border rounded-xl text-black" required />
             </div>
-            <select className="w-full p-4 bg-gray-50 border rounded-xl">
+            <select className="w-full p-4 bg-gray-50 border rounded-xl text-black">
               <option>Private Yacht Charter</option>
               <option>Luxury Hotel Suite</option>
               <option>Product Inquiry</option>
             </select>
-            <textarea rows={4} placeholder="Your Message" className="w-full p-4 bg-gray-50 border rounded-xl"></textarea>
+            <textarea rows={4} placeholder="Your Message" className="w-full p-4 bg-gray-50 border rounded-xl text-black"></textarea>
             <button type="submit" className="w-full bg-black text-white py-5 rounded-xl font-bold uppercase tracking-widest hover:bg-yellow-600">
               Send Reservation Request
             </button>
